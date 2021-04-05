@@ -1,0 +1,1 @@
+ffmpeg -i DJI_0019.MP4 -c:v prores_ks -profile:v 2 -vendor apl0 -bits_per_mb 8000 -pix_fmt yuv422p10le -c:a copy standard_prores_DJI_0019.mov
