@@ -43,7 +43,7 @@ def main():
             #prefix = prefix.replace("_", "-")
 
             # set destination, source, and rename file
-            dst = f"{directory}/{project}_{date}_{camera}_{card}_{count}.{suffix}"
+            dst = f"{directory}/{project}_{date}_{camera}_{card}_{count:04d}.{suffix}"
             src = f"{directory}/{filename}"
             os.rename(src, dst)
     else:
