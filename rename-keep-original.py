@@ -9,23 +9,26 @@ def main():
 
     date = input("Date (yymmdd): ")
     if not re.match(r'\d{6}', date):
-        print("Please enter the date as yymmdd.")
+        print("Please enter the date as yymmdd, using six digits.")
         exit()
 
     project = input("Project name: ")
-    project = project.replace(" ", "")
+    project = project.replace(" ", "_")
+    project = project.replace("-", "_")
 
     camera = input("Camera: ")
-    camera = camera.replace(" ", "")
+    camera = camera.replace(" ", "_")
+    camera = camera.replace("-", "_")
 
-    card = input("Card number: ")
-    card = card.replace(" ", "")
+    info = input("Other info (card number, colour space, etc.): ")
+    info = info.replace(" ", "_")
+    info = info.replace("-", "_")
 
     # Give feedback to user
     print("")
     print(f"You will be changing filenames in the folder: {directory}")
     print(
-        f"Your new filenames will look like this: {project}_{date}_{camera}_{card}_<count>.<filetype>")
+        f"Your new filenames will look like this: {project}_{date}_{camera}_{info}_<count>.<filetype>")
     print("")
 
     # Ask to proceed
@@ -43,7 +46,7 @@ def main():
             prefix = prefix.replace("_", "-")
 
             # set destination, source, and rename file
-            dst = f"{directory}/{project}_{date}_{camera}_{card}_{prefix}.{suffix}"
+            dst = f"{directory}/{project}_{date}_{camera}_{info}_{prefix}.{suffix}"
             src = f"{directory}/{filename}"
             os.rename(src, dst)
     else:
