@@ -21,7 +21,8 @@ def main():
         dst = f"{directory}/{restored_name}"
         src = f"{directory}/{filename}"
         os.rename(src, dst)
-        print("Done!")
+        
+    print("Done!")
 
 
 if __name__ == '__main__':
