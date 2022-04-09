@@ -2,33 +2,44 @@ import os
 import re
 
 
+def cleanup(text):
+    # remove whitespaces, hyphens, and non-alphanumerical characters
+    text = text.replace(" ", "_")
+    text = text.replace("-", "_")
+    if not re.match(r'^[a-zA-Z0-9_]+$', text):
+        print('Please only use letters, numbers, and underscore "_".')
+        exit()
+    return text.lower()
+
+
 def main():
     # Get information from user
     directory = input("File location: ")
+    # remove final backslash, if existing
     re.sub(r'\/$', '', directory)
 
     date = input("Date (yymmdd): ")
-    if not re.match(r'\d{6}', date):
+    if not re.match(r'^\d{6}$', date):
         print("Please enter the date as yymmdd, using six digits.")
         exit()
 
-    project = input("Project name: ")
-    project = project.replace(" ", "_")
-    project = project.replace("-", "_")
+    project = cleanup(input("Project name: "))
+    # project = project.replace(" ", "_")
+    # project = project.replace("-", "_")
 
-    camera = input("Camera: ")
-    camera = camera.replace(" ", "_")
-    camera = camera.replace("-", "_")
+    camera = cleanup(input("Camera: "))
+    # camera = camera.replace(" ", "_")
+    # camera = camera.replace("-", "_")
 
-    info = input("Other info (card number, colour space, etc.): ")
-    info = info.replace(" ", "_")
-    info = info.replace("-", "_")
+    info = cleanup(input("Other info (card number, colour space, etc.): "))
+    # info = info.replace(" ", "_")
+    # info = info.replace("-", "_")
 
     # Give feedback to user
     print("")
-    print(f"You will be changing filenames in the folder: {directory}")
+    print(f"\nYou will be changing filenames in the folder: {directory}")
     print(
-        f"Your new filenames will look like this: {project}_{date}_{camera}_{info}_<count>.<filetype>")
+        f"\nYour new filenames will look like this: {project}_{date}_{camera}_{info}_<count>.<filetype>\n")
     print("")
 
     # Ask to proceed
