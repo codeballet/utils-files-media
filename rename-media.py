@@ -31,27 +31,29 @@ def get_info(choice):
         print('The given directory does not exist!')
         exit()
 
-    date = input("Date (yymmdd): ")
-    if not re.match(r'^\d{6}$', date):
-        print("Please enter the date as yymmdd, using six digits.")
-        exit()
+    if choice != 3:
+        date = input("Date (yymmdd): ")
+        if not re.match(r'^\d{6}$', date):
+            print("Please enter the date as yymmdd, using six digits.")
+            exit()
 
-    project = cleanup(input("Project name: "))
+        project = cleanup(input("Project name: "))
 
-    camera = cleanup(input("Camera: "))
+        camera = cleanup(input("Camera: "))
 
-    info = cleanup(input("Other info (card number, colour space, location, etc.): "))
+        info = cleanup(input("Other info (card number, colour space, location, etc.): "))
 
-    # Give feedback to user
-    print(f"\nYou will be changing filenames in the folder:\n{directory}")
+        # Give feedback to user
+        print(f"\nYou will be changing filenames in the folder:\n{directory}")
 
     if choice == 1:
         # keep original filname
         keep_original(directory, date, project, camera, info)
-    else:
-        # choice is 2, discard original filename
+    elif choice == 2:
         change_all(directory, date, project, camera, info)
-
+    else:
+        # choice is 3
+        undo(directory)
 
 def proceed(question):
     '''
@@ -126,6 +128,27 @@ def keep_original(directory, date, project, camera, info):
     print("\nDone!")
 
 
+def undo(directory):
+    '''
+    Reverts filename to the original
+    '''
+    for filename in os.listdir(directory):
+        # split filename by underscores
+        file_parts = filename.split('_')
+
+        # use the last part as the restored name
+        restored_file = file_parts[-1]
+        # replace dashes with underscores
+        restored_name = restored_file.replace("-", "_")
+
+        # set destination, source and rename file
+        dst = f"{directory}/{restored_name}"
+        src = f"{directory}/{filename}"
+        os.rename(src, dst)
+        
+    print("Done!")
+
+
 def main():
     '''
     Gives user choices of what to do
@@ -134,21 +157,24 @@ def main():
     print('\nPlease choose one of the following options:')
     print('1. Keep original filenames when renaming')
     print('2. Discard original filenames when renaming')
+    print('3. Undo filename change from 1, or only keep count from 2')
     choice = input('\nChoice: ')
 
     # check user input
-    if not re.match(r'^[12]$', choice):
-        print('Please enter either digit 1 or 2')
+    if not re.match(r'^[123]$', choice):
+        print('Please enter one digit: 1, 2, or 3')
         exit()
 
     response = False
     choice = int(choice)
 
     if choice == 1:
-        response = proceed('Are you sure you want to KEEP the original filenames?')
+        response = proceed('Do you want to KEEP the original filenames?')
+    elif choice == 2:
+        response = proceed('Do you want to DISCARD the original filenames?')
     else:
-        # choice is 2
-        response = proceed('Are you sure you want to DISCARD the original filenames?')
+        # choice is 3
+        response = proceed('Do you want to REMOVE all but the original filenames / counts?')
 
     if response:
         get_info(choice)
