@@ -32,6 +32,7 @@ def get_info(choice):
         exit()
 
     if choice != 3:
+        # user wants to change filenames, get more info
         date = input("Date (yymmdd): ")
         if not re.match(r'^\d{6}$', date):
             print("Please enter the date as yymmdd, using six digits.")
