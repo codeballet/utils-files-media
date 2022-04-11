@@ -22,7 +22,7 @@ def get_info(choice):
     Collects information from user for new filename
     '''
     # Get information from user
-    directory = input("File location: ")
+    directory = input("\nFile location: ")
     # remove end backslash, if existing
     re.sub(r'\/$', '', directory)
 
@@ -61,7 +61,7 @@ def proceed(question):
     Checks if a user wants to proceed based on question
     '''
     # check to proceed with user
-    answer = input(f'\n{question}: ')
+    answer = input(f'\n{question}\n')
 
     if re.match(r'^[Yy].*', answer):
         # user responded yes
@@ -170,12 +170,12 @@ def main():
     choice = int(choice)
 
     if choice == 1:
-        response = proceed('Do you want to KEEP the original filenames?')
+        response = proceed('Do you want to KEEP the original filenames? (yes/no)')
     elif choice == 2:
-        response = proceed('Do you want to DISCARD the original filenames?')
+        response = proceed('Do you want to DISCARD the original filenames? (yes/no)')
     else:
         # choice is 3
-        response = proceed('Do you want to REMOVE all but the original filenames / counts?')
+        response = proceed('Do you want to REMOVE all but the original filenames / counts? (yes/no)')
 
     if response:
         get_info(choice)
