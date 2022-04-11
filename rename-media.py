@@ -39,7 +39,7 @@ def get_info(choice):
 
         project = cleanup(input("Project name: "))
 
-        camera = cleanup(input("Camera: "))
+        camera = cleanup(input("Source (camera, person, organisation, etc.): "))
 
         info = cleanup(input("Other info (card number, colour space, location, etc.): "))
 
