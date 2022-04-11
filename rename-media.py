@@ -39,7 +39,7 @@ def get_info(choice):
 
         project = cleanup(input("Project name: "))
 
-        camera = cleanup(input("Source (camera, person, organisation, etc.): "))
+        source = cleanup(input("Source (camera, person, organisation, etc.): "))
 
         info = cleanup(input("Other info (card number, colour space, location, etc.): "))
 
@@ -48,9 +48,9 @@ def get_info(choice):
 
     if choice == 1:
         # keep original filname
-        keep_original(directory, date, project, camera, info)
+        keep_original(directory, date, project, source, info)
     elif choice == 2:
-        change_all(directory, date, project, camera, info)
+        change_all(directory, date, project, source, info)
     else:
         # choice is 3
         undo(directory)
@@ -70,12 +70,12 @@ def proceed(question):
     return False
 
 
-def change_all(directory, date, project, camera, info):
+def change_all(directory, date, project, source, info):
     '''
     Completely changes a filename, replacing original with a four digit count
     '''
     print(
-        f"\nYour new filenames will be:\n{project}_{date}_{camera}_{info}_<count>.<filetype>")
+        f"\nYour new filenames will be:\n{project}_{date}_{source}_{info}_<count>.<filetype>")
 
     if proceed('Are you sure everything above is correct? (yes/no)'):
         # sort files in alphabetical order
@@ -89,7 +89,7 @@ def change_all(directory, date, project, camera, info):
             suffix = file_parts[1]
 
             # set destination, source, and rename file
-            dst = f"{directory}/{project}_{date}_{camera}_{info}_{count:04d}.{suffix}"
+            dst = f"{directory}/{project}_{date}_{source}_{info}_{count:04d}.{suffix}"
             src = f"{directory}/{filename}"
             os.rename(src, dst)
     else:
@@ -99,12 +99,12 @@ def change_all(directory, date, project, camera, info):
     print("Done!")       
 
 
-def keep_original(directory, date, project, camera, info):
+def keep_original(directory, date, project, source, info):
     '''
     Adds new information to filename, keeping the original name
     '''
     print(
-        f"\nYour new filenames will be:\n{project}_{date}_{camera}_{info}_<original>.<filetype>")
+        f"\nYour new filenames will be:\n{project}_{date}_{source}_{info}_<original>.<filetype>")
 
     if proceed('Are you sure everything above is correct? (yes/no)'):
         for filename in os.listdir(directory):
@@ -118,7 +118,7 @@ def keep_original(directory, date, project, camera, info):
             prefix = prefix.replace("_", "-")
 
             # set destination, source, and rename file
-            dst = f"{directory}/{project}_{date}_{camera}_{info}_{prefix}.{suffix}"
+            dst = f"{directory}/{project}_{date}_{source}_{info}_{prefix}.{suffix}"
             src = f"{directory}/{filename}"
             os.rename(src, dst)
     else:
