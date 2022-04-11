@@ -3,7 +3,12 @@ import re
 
 
 def cleanup(text):
-    # clean up whitespaces, hyphens, non-alphanumerical characters, capitals
+    '''
+    Cleans up user input.
+    Replaces whitespace and hyphen with underscore.
+    Exits if non-alphanunerical characters are used.
+    Lowers all letters.
+    '''
     text = text.replace(" ", "_")
     text = text.replace("-", "_")
     if not re.match(r'^[a-zA-Z0-9_]+$', text):
@@ -13,6 +18,9 @@ def cleanup(text):
 
 
 def get_info(choice):
+    '''
+    Collects information from user for new filename
+    '''
     # Get information from user
     directory = input("File location: ")
     # remove end backslash, if existing
@@ -46,6 +54,9 @@ def get_info(choice):
 
 
 def proceed(question):
+    '''
+    Checks if a user wants to proceed based on question
+    '''
     # check to proceed with user
     answer = input(f'\n{question}: ')
 
@@ -58,6 +69,9 @@ def proceed(question):
 
 
 def change_all(directory, date, project, camera, info):
+    '''
+    Completely changes a filename, replacing original with a four digit count
+    '''
     print(
         f"\nYour new filenames will be:\n{project}_{date}_{camera}_{info}_<count>.<filetype>")
 
@@ -84,6 +98,9 @@ def change_all(directory, date, project, camera, info):
 
 
 def keep_original(directory, date, project, camera, info):
+    '''
+    Adds new information to filename, keeping the original name
+    '''
     print(
         f"\nYour new filenames will be:\n{project}_{date}_{camera}_{info}_<original>.<filetype>")
 
@@ -110,6 +127,9 @@ def keep_original(directory, date, project, camera, info):
 
 
 def main():
+    '''
+    Gives user choices of what to do
+    '''
     # ask user what to do
     print('\nPlease choose one of the following options:')
     print('1. Keep original filenames when renaming')
