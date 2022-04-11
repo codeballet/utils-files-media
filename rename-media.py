@@ -131,7 +131,7 @@ def keep_original(directory, date, project, source, info):
 
 def undo(directory):
     '''
-    Reverts filename to the original
+    Reverts filename to the original or count only
     '''
     for filename in os.listdir(directory):
         # split filename by underscores
