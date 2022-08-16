@@ -4,7 +4,7 @@ import re
 
 
 # list of existing syllabi
-syllabi = ['ci', 'c', 'a1']
+syllabi = ['cif', 'ci', 'ca1']
 
 
 def cleanup(text):
