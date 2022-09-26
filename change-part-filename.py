@@ -5,12 +5,17 @@ import re
 def main():
     # Get information from user
     directory = input("Directory: ")
-    pattern = input("Pattern to replace: ")
-    replacement = input("Replacement: ")
 
-    print('\nOld filenames:')
+    # Print out existing files in directory
+    print("\nExisting files:")
     for filename in os.listdir(directory):
         print(filename)
+
+    # Get pattern and replacement from user
+    pattern = input("\nPattern to replace: ")
+    replacement = input("Replacement: ")
+
+    for filename in os.listdir(directory):
         # Substitute the pattern with replacements
         new_name = re.sub(f"{pattern}", replacement, filename)
 
