@@ -9,7 +9,6 @@ def clean_day(day):
         new_day, n = p.subn('', day)
         return int(new_day)
     except:
-        # print('Day must contain a number')
         sys.exit('Day must contain a number')
 
 
@@ -19,7 +18,6 @@ def clean_set(set):
         new_set, n = p.subn('', set)
         return int(new_set)
     except:
-        # print('Set must be a number')
         sys.exit('Set must be a number')
 
 
