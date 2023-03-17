@@ -1,1 +1,19 @@
 ffmpeg -i <input-file> -c:v prores_ks -profile:v 2 -vendor apl0 -bits_per_mb 8000 -pix_fmt yuv422p10le -c:a copy <output-file>.mov
+
+# Apple ProRes 422 HQ
+ffmpeg -i inputVideo.mp4 \
+-c:v prores_ks \
+-profile:v 3 \
+-vendor apl0 \
+-bits_per_mb 8000 \
+-pix_fmt yuv422p10le \
+proRes422_output.mov
+
+# Apple ProRes 422 Standard
+ffmpeg -i inputVideo.mp4 \
+-c:v prores_ks \
+-profile:v 2 \
+-quant_mat 0
+-vendor apl0 \
+-pix_fmt yuv422p10le \
+proRes422_output.mov
